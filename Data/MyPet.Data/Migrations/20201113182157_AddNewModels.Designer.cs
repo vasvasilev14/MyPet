@@ -10,8 +10,8 @@ using MyPet.Data;
 namespace MyPet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201113174606_AddModels")]
-    partial class AddModels
+    [Migration("20201113182157_AddNewModels")]
+    partial class AddNewModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,6 +135,9 @@ namespace MyPet.Data.Migrations
                     b.Property<string>("AddedByUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("BreedId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -174,6 +177,8 @@ namespace MyPet.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
+
+                    b.HasIndex("BreedId");
 
                     b.HasIndex("CityId");
 
@@ -672,6 +677,12 @@ namespace MyPet.Data.Migrations
                     b.HasOne("MyPet.Data.Models.ApplicationUser", "AddedByUser")
                         .WithMany()
                         .HasForeignKey("AddedByUserId");
+
+                    b.HasOne("MyPet.Data.Models.Breed", "Breed")
+                        .WithMany("Animals")
+                        .HasForeignKey("BreedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MyPet.Data.Models.City", "City")
                         .WithMany("Animals")

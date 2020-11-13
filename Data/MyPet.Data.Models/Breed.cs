@@ -8,10 +8,17 @@
 
     public class Breed : BaseDeletableModel<int>
     {
+        public Breed()
+        {
+            this.Animals = new HashSet<Animal>();
+        }
+
         public string Name { get; set; }
 
         public int SpecieId { get; set; }
 
         public virtual Specie Specie { get; set; }
+
+        public virtual ICollection<Animal> Animals { get; set; }
     }
 }

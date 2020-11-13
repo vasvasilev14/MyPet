@@ -27,6 +27,10 @@
 
         public virtual Specie Specie { get; set; }
 
+        public int BreedId { get; set; }
+
+        public virtual Breed Breed { get; set; }
+
         public int LoveMarketId { get; set; }
 
         public virtual LoveMarket LoveMarket { get; set; }
