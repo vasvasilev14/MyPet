@@ -10,11 +10,11 @@
     {
         public City()
         {
-            this.Animals = new HashSet<Animal>();
+            this.Pets = new HashSet<Pet>();
         }
 
         public string Name { get; set; }
 
-        public virtual ICollection<Animal> Animals { get; set; }
+        public virtual ICollection<Pet> Pets { get; set; }
     }
 }

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPet.Data;
 
 namespace MyPet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201113182157_AddNewModels")]
-    partial class AddNewModels
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,76 +121,6 @@ namespace MyPet.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("MyPet.Data.Models.Animal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("BreedId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LoveMarketId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SellMarketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpecieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddedByUserId");
-
-                    b.HasIndex("BreedId");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("ContactId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("LoveMarketId");
-
-                    b.HasIndex("SellMarketId");
-
-                    b.HasIndex("SpecieId");
-
-                    b.ToTable("Animals");
                 });
 
             modelBuilder.Entity("MyPet.Data.Models.ApplicationRole", b =>
@@ -473,9 +401,6 @@ namespace MyPet.Data.Migrations
                     b.Property<string>("AddedByUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -491,13 +416,16 @@ namespace MyPet.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
 
-                    b.HasIndex("AnimalId");
-
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("PetId");
 
                     b.ToTable("Images");
                 });
@@ -529,6 +457,76 @@ namespace MyPet.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("LoveMarkets");
+                });
+
+            modelBuilder.Entity("MyPet.Data.Models.Pet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddedByUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BreedId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContactId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoveMarketId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SellMarketId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedByUserId");
+
+                    b.HasIndex("BreedId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("LoveMarketId");
+
+                    b.HasIndex("SellMarketId");
+
+                    b.HasIndex("SpecieId");
+
+                    b.ToTable("Pets");
                 });
 
             modelBuilder.Entity("MyPet.Data.Models.SellMarket", b =>
@@ -672,49 +670,6 @@ namespace MyPet.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyPet.Data.Models.Animal", b =>
-                {
-                    b.HasOne("MyPet.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany()
-                        .HasForeignKey("AddedByUserId");
-
-                    b.HasOne("MyPet.Data.Models.Breed", "Breed")
-                        .WithMany("Animals")
-                        .HasForeignKey("BreedId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyPet.Data.Models.City", "City")
-                        .WithMany("Animals")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyPet.Data.Models.Contact", "Contact")
-                        .WithMany("Animals")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyPet.Data.Models.LoveMarket", "LoveMarket")
-                        .WithMany("Animals")
-                        .HasForeignKey("LoveMarketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyPet.Data.Models.SellMarket", "SellMarket")
-                        .WithMany("Animals")
-                        .HasForeignKey("SellMarketId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyPet.Data.Models.Specie", "Specie")
-                        .WithMany("Animals")
-                        .HasForeignKey("SpecieId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MyPet.Data.Models.Breed", b =>
                 {
                     b.HasOne("MyPet.Data.Models.Specie", "Specie")
@@ -756,9 +711,52 @@ namespace MyPet.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AddedByUserId");
 
-                    b.HasOne("MyPet.Data.Models.Animal", "Animal")
+                    b.HasOne("MyPet.Data.Models.Pet", "Pets")
                         .WithMany("Images")
-                        .HasForeignKey("AnimalId")
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MyPet.Data.Models.Pet", b =>
+                {
+                    b.HasOne("MyPet.Data.Models.ApplicationUser", "AddedByUser")
+                        .WithMany()
+                        .HasForeignKey("AddedByUserId");
+
+                    b.HasOne("MyPet.Data.Models.Breed", "Breed")
+                        .WithMany("Pets")
+                        .HasForeignKey("BreedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.City", "City")
+                        .WithMany("Pets")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.Contact", "Contact")
+                        .WithMany("Pets")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.LoveMarket", "LoveMarket")
+                        .WithMany("Pets")
+                        .HasForeignKey("LoveMarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.SellMarket", "SellMarket")
+                        .WithMany("Pets")
+                        .HasForeignKey("SellMarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.Specie", "Specie")
+                        .WithMany("Pets")
+                        .HasForeignKey("SpecieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

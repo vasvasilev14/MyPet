@@ -13,9 +13,9 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public int AnimalId { get; set; }
+        public int PetId { get; set; }
 
-        public virtual Animal Animal { get; set; }
+        public virtual Pet Pets { get; set; }
 
         public string Extension { get; set; }
 

@@ -36,4 +36,8 @@
     <ProjectReference Include="..\MyPet.Web.Infrastructure\MyPet.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\MyPet.Web.ViewModels\MyPet.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Pets\" />
+  </ItemGroup>
 </Project>

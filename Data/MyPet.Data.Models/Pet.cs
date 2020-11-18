@@ -6,9 +6,9 @@
 
     using MyPet.Data.Common.Models;
 
-    public class Animal : BaseDeletableModel<int>
+    public class Pet : BaseDeletableModel<int>
     {
-        public Animal()
+        public Pet()
         {
             this.Images = new HashSet<Image>();
         }

@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace MyPet.Web.Controllers
 {
-    public class PetsContoller: BaseController
+    public class PetsContoller : BaseController
     {
+
     }
 }

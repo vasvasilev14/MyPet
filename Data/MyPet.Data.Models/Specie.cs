@@ -10,7 +10,7 @@
     {
         public Specie()
         {
-            this.Animals = new HashSet<Animal>();
+            this.Pets = new HashSet<Pet>();
             this.Breeds = new HashSet<Breed>();
         }
 
@@ -18,6 +18,6 @@
 
         public virtual ICollection<Breed> Breeds { get; set; }
 
-        public virtual ICollection<Animal> Animals { get; set; }
+        public virtual ICollection<Pet> Pets { get; set; }
     }
 }

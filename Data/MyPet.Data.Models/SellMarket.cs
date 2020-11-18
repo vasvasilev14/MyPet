@@ -10,13 +10,13 @@
     {
         public SellMarket()
         {
-            this.Animals = new HashSet<Animal>();
+            this.Pets = new HashSet<Pet>();
             this.Comments = new HashSet<Comment>();
         }
 
         public decimal Price { get; set; }
 
-        public virtual ICollection<Animal> Animals { get; set; }
+        public virtual ICollection<Pet> Pets { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }
