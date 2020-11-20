@@ -38,6 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Pets\" />
+    <Content Update="Views\Pets\Add.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

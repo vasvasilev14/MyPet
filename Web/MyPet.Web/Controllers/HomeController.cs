@@ -1,16 +1,28 @@
 ﻿namespace MyPet.Web.Controllers
 {
     using System.Diagnostics;
-
-    using MyPet.Web.ViewModels;
+    using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
+    using MyPet.Data.Common.Repositories;
+    using MyPet.Data.Models;
+    using MyPet.Services.Data;
+    using MyPet.Web.ViewModels;
+    using MyPet.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
+        private readonly IGetCountsService getCountsService;
+
+        public HomeController(IGetCountsService getCountsService)
+        {
+            this.getCountsService = getCountsService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = this.getCountsService.GetCounts();
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MyPet.Data.Common\MyPet.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\MyPet.Data.Models\MyPet.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\MyPet.Web.ViewModels\MyPet.Web.ViewModels.csproj" />
     <ProjectReference Include="..\MyPet.Services.Mapping\MyPet.Services.Mapping.csproj" />
   </ItemGroup>
 
