@@ -11,11 +11,12 @@ namespace MyPet.Web.ViewModels.Pets
     {
         [MinLength(2)]
         public string Name { get; set; }
-        
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        public Gender Gender { get; set; }
+        public string Gender { get; set; }
 
         public int BreedId { get; set; }
+        public IEnumerable<KeyValuePair<string,string>> Breeds { get; set; }
     }
 }

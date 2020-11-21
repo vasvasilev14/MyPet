@@ -6,22 +6,36 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using MyPet.Services.Data;
     using MyPet.Web.ViewModels.Pets;
 
     public class PetsController : BaseController
     {
+        private readonly IBreedsService breedsService;
+        private readonly IPetsService petsService;
+
+        public PetsController(IBreedsService breedsService, IPetsService petsService)
+        {
+            this.breedsService = breedsService;
+            this.petsService = petsService;
+        }
+
         public IActionResult Add()
         {
-            return this.View();
+            var viewModel = new AddPetInputModel();
+            viewModel.Breeds = this.breedsService.GetAllAsKeyValuePairs();
+            return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddPetInputModel input, string specie)
+        public async Task<IActionResult> Add(AddPetInputModel input, string specie)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                input.Breeds = this.breedsService.GetAllAsKeyValuePairs();
+                return this.View(input);
             }
+            await this.petsService.AddAsync(input);
 
             return this.Redirect("/");
         }

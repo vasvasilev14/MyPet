@@ -1,7 +1,10 @@
 ﻿@model MyPet.Web.ViewModels.Pets.AddPetInputModel
-<h1>Add your pet</h1>
+@{ 
+    this.ViewData["Ttile"] = "Add your pet";
+    var breeds = this.Model.Breeds.Select(x => new SelectListItem(x.Value, x.Key));
+}
 
-<form method="post">
+<form method="post" class="col-md-6 offset-md-3">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -10,11 +13,22 @@
     <div class="form-group">
         <label asp-for="DateOfBirth"></label>
         <input asp-for="DateOfBirth" class="form-control" />
-        <span asp-validation-for="DateOfBirth"class="text-danger"></span>
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Gender"></label>
-        <input asp-for="Gender" class="custom-radio buttons" />
-        <span asp-validation-for="Gender"class="text-danger"></span>
+        <div>
+            Male:   @Html.RadioButton("Gender", "Male")
+
+            Female: @Html.RadioButton("Gender", "Female")
+        </div>
+        <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="BreedId" >Breed</label>
+        <select asp-for="BreedId"  class="form-control" asp-items="breeds"></select>
+        <span asp-validation-for="BreedId" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn-primary" />
 </form>
+
