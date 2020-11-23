@@ -9,6 +9,6 @@
 
     public interface IPetsService
     {
-        Task AddAsync(AddPetInputModel inputModel);
+        Task AddAsync(AddPetInputModel inputModel, int specieId);
     }
 }

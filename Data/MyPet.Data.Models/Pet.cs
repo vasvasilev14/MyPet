@@ -31,11 +31,11 @@
 
         public virtual Breed Breed { get; set; }
 
-        public int LoveMarketId { get; set; }
+        public int? LoveMarketId { get; set; }
 
         public virtual LoveMarket LoveMarket { get; set; }
 
-        public int SellMarketId { get; set; }
+        public int? SellMarketId { get; set; }
 
         public virtual SellMarket SellMarket { get; set; }
 
@@ -45,7 +45,7 @@
 
         public virtual ICollection<Image> Images { get; set; }
 
-        public int ContactId { get; set; }
+        public int? ContactId { get; set; }
 
         public virtual Contact Contact { get; set; }
     }

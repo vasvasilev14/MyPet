@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPet.Data;
 
 namespace MyPet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201123124239_newpdate")]
+    partial class newpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -475,7 +477,7 @@ namespace MyPet.Data.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ContactId")
+                    b.Property<int>("ContactId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -493,7 +495,7 @@ namespace MyPet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LoveMarketId")
+                    b.Property<int>("LoveMarketId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -502,7 +504,7 @@ namespace MyPet.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SellMarketId")
+                    b.Property<int>("SellMarketId")
                         .HasColumnType("int");
 
                     b.Property<int>("SpecieId")
@@ -738,15 +740,21 @@ namespace MyPet.Data.Migrations
 
                     b.HasOne("MyPet.Data.Models.Contact", "Contact")
                         .WithMany("Pets")
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MyPet.Data.Models.LoveMarket", "LoveMarket")
                         .WithMany("Pets")
-                        .HasForeignKey("LoveMarketId");
+                        .HasForeignKey("LoveMarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MyPet.Data.Models.SellMarket", "SellMarket")
                         .WithMany("Pets")
-                        .HasForeignKey("SellMarketId");
+                        .HasForeignKey("SellMarketId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MyPet.Data.Models.Specie", "Specie")
                         .WithMany("Pets")

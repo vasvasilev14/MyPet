@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public interface IBreedsService
+    public interface ICitiesService
     {
-        IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs(int specieId);
+        IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
     }
 }

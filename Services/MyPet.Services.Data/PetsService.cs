@@ -18,7 +18,7 @@
             this.petsRepository = petsRepository;
         }
 
-        public async Task AddAsync(AddPetInputModel input)
+        public async Task AddAsync(AddPetInputModel input, int specieId)
         {
 
             string genderAsString = input.Gender;
@@ -29,6 +29,8 @@
                 Name = input.Name,
                 Gender = gender,
                 DateOfBirth = input.DateOfBirth,
+                CityId = input.CityId,
+                SpecieId= specieId,
             };
 
             await this.petsRepository.AddAsync(pet);
