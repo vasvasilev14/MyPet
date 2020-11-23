@@ -29,6 +29,7 @@
                               new SettingsSeeder(),
                               new SpecieSeeder(),
                               new BreedSeeder(),
+                              new CitySeeder(),
                           };
 
             foreach (var seeder in seeders)

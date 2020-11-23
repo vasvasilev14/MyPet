@@ -8,7 +8,7 @@
 
     using MyPet.Data.Models;
 
-    public class BreedSeeder : ISeeder
+    internal class BreedSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
