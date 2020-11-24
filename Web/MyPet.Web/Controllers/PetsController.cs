@@ -4,8 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MyPet.Data.Models;
     using MyPet.Services.Data;
     using MyPet.Web.ViewModels.Pets;
 
@@ -14,14 +17,24 @@
         private readonly IBreedsService breedsService;
         private readonly IPetsService petsService;
         private readonly ICitiesService citiesService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
-        public PetsController(IBreedsService breedsService, IPetsService petsService, ICitiesService citiesService)
+        public PetsController(
+            IBreedsService breedsService,
+            IPetsService petsService,
+            ICitiesService citiesService,
+            UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment environment)
         {
             this.breedsService = breedsService;
             this.petsService = petsService;
             this.citiesService = citiesService;
+            this.userManager = userManager;
+            this.environment = environment;
         }
 
+        [Authorize]
         public IActionResult Add(int specieId)
         {
             var viewModel = new AddPetInputModel();
@@ -32,6 +45,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddPetInputModel input, int specieId)
         {
@@ -42,9 +56,27 @@
                 return this.View(input);
             }
 
-            await this.petsService.AddAsync(input,specieId);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            try
+            {
+                await this.petsService.AddAsync(input, specieId, user.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                input.Breeds = this.breedsService.GetAllAsKeyValuePairs(specieId);
+                input.Cities = this.citiesService.GetAllAsKeyValuePairs();
+                return this.View(input);
+            }
 
             return this.Redirect("/");
+        }
+
+        public IActionResult ById(int id)
+        {
+            var pet = this.petsService.GetById<SinglePetViewModel>(id);
+            return this.View(pet);
         }
     }
 }
