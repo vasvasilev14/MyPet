@@ -11,6 +11,10 @@
     {
         Task AddAsync(AddPetInputModel inputModel, int specieId, string userId, string imagePath);
 
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
+
+        int GetCount();
+
         T GetById<T>(int id);
     }
 }

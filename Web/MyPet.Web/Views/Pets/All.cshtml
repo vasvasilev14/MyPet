@@ -1,0 +1,37 @@
+﻿
+
+
+@model MyPet.Web.ViewModels.Pets.PetsListViewModel
+@{ this.ViewData["Title"] = "All Pets";}
+
+<center><h1>@this.ViewData["Title"]</h1></center>
+<hr />
+<body>
+
+    <div class="row">
+        @foreach (var pet in this.Model.Pets)
+        {
+<div class="col-md-3">
+    <div class="component">
+        <div class="card bg-light">
+            <div class="card-header">
+                <img class="card-img" src="@pet.ImageUrl">
+            </div>
+            <div class="card-body">
+
+                <span class="badge badge-pill">@pet.Breed.Name</span>
+                <span class="badge badge-secondary">@pet.Gender</span>
+                <h1 class="card-title ">@pet.Name</h1>
+                <span class="card-text"> @pet.City.Name</span>
+                <p class="card-text"> @pet.Age years old.</p>
+            </div>
+            <div class="card-footer">
+                <a href="#a" class="btn btn-outline-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+</div>}
+    </div>
+</body>
+<hr />
+<partial name="_PagingPartial" model="@Model" />

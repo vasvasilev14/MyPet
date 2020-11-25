@@ -70,5 +70,19 @@
 
             return pet;
         }
+
+        public int GetCount()
+        {
+            return this.petsRepository.All().Count();
+        }
+
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        {
+            var pets = this.petsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+            return pets;
+        }
     }
 }

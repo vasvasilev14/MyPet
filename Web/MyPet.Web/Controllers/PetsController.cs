@@ -78,5 +78,23 @@
             var pet = this.petsService.GetById<SinglePetViewModel>(id);
             return this.View(pet);
         }
+
+        public IActionResult All(int id = 1)
+        {
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 8;
+            var viewModel = new PetsListViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                PetsCount = this.petsService.GetCount(),
+                Pets = this.petsService.GetAll<PetsInListViewModel>(id, ItemsPerPage),
+            };
+            return this.View(viewModel);
+        }
     }
 }
