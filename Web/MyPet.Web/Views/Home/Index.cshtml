@@ -4,13 +4,57 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <div class="col-md-4 offset-4">
-        <p>We have:</p>
-        <ul>
-            <li class="list-group-item">@Model.ImagesCount Images</li>
-            <li class="list-group-item">@Model.BreedsCount Breeds</li>
-        </ul>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Small Business - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/small-business.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row align-items-center my-5">
+            <div class="col-lg-7">
+                <img class="img-fluid rounded mb-4 mb-lg-0" src="https://i.guim.co.uk/img/media/40b168b7f39a3930919305307a4f96dc0befe8f2/6_0_10655_6400/master/10655.jpg?width=445&quality=85&auto=format&fit=max&s=2f8b8ae7baae3ee6d263e7c9a89497ad" alt="">
+            </div>
+            <!-- /.col-lg-8 -->
+            <div class="col-lg-5">
+                <h1 class="font-weight-light">What is My Pet ?</h1>
+                <p>This is a platform where you can find your pet soulmate or you can just can hace fun and like other pets.</p>
+                <a class="btn btn-primary" href="/Identity/Account/Register">Join us !</a>
+                <a class="btn btn-primary" href="/Identity/Account/Login">Login</a>
+
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+        <!-- Call to Action Well -->
+        <div class="card text-white bg-secondary my-5 py-4 text-center">
+            <div class="card-body">
+                <p class="text-white m-0">Make your pet happy! Find its friends or love. You can see our rating <a href="/About/Index">HERE</a> </p>
+            </div>
+        </div>              
+
     </div>
-</div>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>

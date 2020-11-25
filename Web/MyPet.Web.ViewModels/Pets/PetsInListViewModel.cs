@@ -23,7 +23,7 @@
 
         public DateTime DateOfBirth { get; set; }
 
-        public decimal Age => (DateTime.Today - this.DateOfBirth).Days / 365;
+        public int Age => (DateTime.Today - this.DateOfBirth).Days / 365;
 
         public Gender Gender { get; set; }
 

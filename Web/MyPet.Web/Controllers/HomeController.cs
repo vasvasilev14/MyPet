@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
     using System.Linq;
-
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MyPet.Data.Common.Repositories;
     using MyPet.Data.Models;
@@ -12,17 +12,21 @@
 
     public class HomeController : BaseController
     {
-        private readonly IGetCountsService getCountsService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public HomeController(IGetCountsService getCountsService)
+        public HomeController(SignInManager<ApplicationUser> signInManager)
         {
-            this.getCountsService = getCountsService;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index()
         {
-            var viewModel = this.getCountsService.GetCounts();
-            return this.View(viewModel);
+            if (!this.signInManager.IsSignedIn(this.User))
+            {
+                return this.View();
+            }
+
+            return this.Redirect("/Pets/All");
         }
 
         public IActionResult Privacy()
