@@ -84,5 +84,14 @@
                 .To<T>().ToList();
             return pets;
         }
+
+        public IEnumerable<T> GetMine<T>(int page, string addedByUserId, int itemsPerPage = 12)
+        {
+            var pets = this.petsRepository.AllAsNoTracking().Where(x=>x.AddedByUserId==addedByUserId)
+               .OrderByDescending(x => x.Id)
+               .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+               .To<T>().ToList();
+            return pets;
+        }
     }
 }

@@ -23,25 +23,26 @@
                 <span class="badge badge-secondary">@pet.Gender</span>
                 <h1 class="card-title ">@pet.Name</h1>
 
-               <li style="list-style-type:none;"><i class="fas fa-city"></i> <span class="card-text "> @pet.City.Name</span></li>
+                <li style="list-style-type:none;"><i class="fas fa-city"></i> <span class="card-text "> @pet.City.Name</span></li>
                 @if (pet.Age == 0)
                 {
-                    var months = (int)(DateTime.Today - pet.DateOfBirth).Days/12 ;
-            <li style="list-style-type:none;">
-                <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span></li>
-                }
+                    var months = (int)(DateTime.Today - pet.DateOfBirth).Days / 12;
+<li style="list-style-type:none;">
+    <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
+</li> }
                 else
                 {
-            
-                var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167-pet.Age*12);
-            <li style="list-style-type:none;">
-                <i class="fas fa-birthday-cake"></i><span class="card-text"> @pet.Age,@months years old.</span>
-            </li>
-                }
-</div>
+
+                    var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age * 12);
+<li style="list-style-type:none;">
+    <i class="fas fa-birthday-cake"></i><span class="card-text"> @pet.Age,@months years old.</span>
+</li>                }
+            </div>
             <div class="card-footer">
-                <a href="#a" class="btn btn-outline-primary">Profile</a>
-                <button type="button" class="btn btn-outline-danger btn-icon float-right">100<i class="fas fa-paw"></i></button>
+                <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
+                <button type="button" id="@pet.Id"  class="btn btn-outline-danger btn-icon float-right"><span id="totalLikes">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
+              
+               
             </div>
         </div>
     </div>
@@ -50,3 +51,27 @@
 </body>
 <hr />
 <partial name="_PagingPartial" model="@Model" />
+<form method="post" id="antiForgeryForm"></form>
+@section Scripts {
+    <script>$("button[id]").each(function (el) {
+            $(this).click(function () {
+                var counter = 1;
+                var petId = Number($(this).attr("id"));                
+                var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
+                var data = { petId: petId, counter: counter };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Likes",
+                    data: JSON.stringify(data),
+                    headers: {
+                        'X-CSRF-TOKEN': antiForgeryToken
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        $('#totalLikes').html(data.totalLikes);
+                    },
+                    contentType: 'application/json',
+                });
+            })
+        });</script>
+}

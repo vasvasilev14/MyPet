@@ -13,6 +13,8 @@
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 
+        IEnumerable<T> GetMine<T>(int page, string addedByUserId, int itemsPerPage = 12);
+
         int GetCount();
 
         T GetById<T>(int id);

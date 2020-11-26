@@ -11,6 +11,7 @@
         public Pet()
         {
             this.Images = new HashSet<Image>();
+            this.Likes = new HashSet<Like>();
         }
 
         public string Name { get; set; }
@@ -44,6 +45,8 @@
         public virtual City City { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public virtual ICollection<Like> Likes { get; set; }
 
         public int? ContactId { get; set; }
 
