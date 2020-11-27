@@ -9,6 +9,10 @@
     {
         Task SetLikeAsync(int petId, string userId, int counter);
 
+        Task DeleteLikeAsync(int petId, string userId, int counter);
+
         int GetTotalLikes(int petId);
+
+        bool IsUserLikedIt(string userId, int petId);
     }
 }

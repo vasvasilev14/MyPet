@@ -26,7 +26,15 @@ namespace MyPet.Web.Controllers
         public async Task<ActionResult<PostLikeResponseModel>> Post(PostLikeInputModel input)
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            await this.likesService.SetLikeAsync(input.PetId, userId, input.Counter);
+            if (this.likesService.IsUserLikedIt(userId, input.PetId))
+            {
+                await this.likesService.DeleteLikeAsync(input.PetId, userId, input.Counter);
+            }
+            else
+            {
+                await this.likesService.SetLikeAsync(input.PetId, userId, input.Counter);
+            }
+
             var totalLikes = this.likesService.GetTotalLikes(input.PetId);
             return new PostLikeResponseModel { TotalLikes = totalLikes };
         }

@@ -18,11 +18,33 @@
             this.likesRepository = likesRepository;
         }
 
+        public async Task DeleteLikeAsync(int petId, string userId, int counter)
+        {
+            var like = this.likesRepository.All()
+                 .FirstOrDefault(x => x.PetId == petId && x.UserId == userId);
+            like.Counter = counter;
+            this.likesRepository.Delete(like);
+            await this.likesRepository.SaveChangesAsync();
+        }
+
         public int GetTotalLikes(int petId)
         {
             return this.likesRepository.All()
                 .Where(x => x.PetId == petId)
                 .Sum(x => x.Counter);
+        }
+
+        public bool IsUserLikedIt(string userId, int petId)
+        {
+            var isUserLikedIt = this.likesRepository.AllAsNoTracking().FirstOrDefault(x => x.UserId == userId && x.PetId == petId);
+            if (isUserLikedIt != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task SetLikeAsync(int petId, string userId, int counter)
