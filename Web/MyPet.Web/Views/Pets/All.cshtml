@@ -40,7 +40,7 @@
             </div>
             <div class="card-footer">
                 <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
-                <button type="button" id="@pet.Id"  class="btn btn-outline-danger btn-icon float-right"><span id="totalLikes">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
+                <button type="button" id="@pet.Id" value="@pet.Id" class="btn btn-outline-danger btn-icon float-right"><span id="totalLikes-@pet.Id">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
               
                
             </div>
@@ -53,7 +53,8 @@
 <partial name="_PagingPartial" model="@Model" />
 <form method="post" id="antiForgeryForm"></form>
 @section Scripts {
-    <script>$("button[id]").each(function (el) {
+    <script>
+    $("button[id]").each(function (el) {
             $(this).click(function () {
                 var counter = 1;
                 var petId = Number($(this).attr("id"));                
@@ -67,8 +68,9 @@
                         'X-CSRF-TOKEN': antiForgeryToken
                     },
                     success: function (data) {
-                        console.log(data)
-                        $('#totalLikes').html(data.totalLikes);
+                        var id = document.getElementById(petId).value 
+                        var path = '#' + 'totalLikes' +'-'+ id
+                        $(path).html(data.totalLikes);
                     },
                     contentType: 'application/json',
                 });
