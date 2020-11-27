@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyPet.Services.Data;
-using MyPet.Web.ViewModels.About;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyPet.Web.Controllers
+﻿namespace MyPet.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using MyPet.Services.Data;
+    using MyPet.Web.ViewModels.About;
+
     public class AboutController : BaseController
     {
         private readonly IAboutService aboutService;
@@ -18,9 +19,9 @@ namespace MyPet.Web.Controllers
         }
 
         public IActionResult Index()
-        {            
+        {
             var viewModel = this.aboutService.GetAboutInfo();
-            
+
             return this.View(viewModel);
         }
     }

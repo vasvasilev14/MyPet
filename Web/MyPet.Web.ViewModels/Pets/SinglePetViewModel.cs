@@ -9,8 +9,10 @@
     using MyPet.Data.Models;
     using MyPet.Services.Mapping;
 
-    public class SinglePetViewModel : IMapFrom<Pet>, IHaveCustomMappings
+    public class SinglePetViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
@@ -19,26 +21,18 @@
 
         public string AddedByUserId { get; set; }
 
-        public int SpecieId { get; set; }
+        public string SpecieName { get; set; }
 
-        public int BreedId { get; set; }
+        public string BreedName { get; set; }
 
-        public int CityId { get; set; }
+        public string CityName { get; set; }
 
         public string ImageUrl { get; set; }
 
-        public int? ContactId { get; set; }
+        public ICollection<PetImagesViewModel> Images { get; set; }
 
-        public virtual Contact Contact { get; set; }
+        public int TotalLikes { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Pet, SinglePetViewModel>()
-                .ForMember(x => x.ImageUrl, opt =>
-                    opt.MapFrom(x =>
-                        x.Images.FirstOrDefault().RemoteImageUrl != null ?
-                        x.Images.FirstOrDefault().RemoteImageUrl :
-                        "/images/recipes/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
-        }
+
     }
 }

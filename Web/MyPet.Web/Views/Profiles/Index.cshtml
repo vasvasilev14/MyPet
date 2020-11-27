@@ -3,46 +3,42 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@model MyPet.Web.ViewModels.Pets.PetsListViewModel
+@model MyPet.Web.ViewModels.Pets.SinglePetViewModel
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Lazy - Bootstrap UI Kit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="A new design system for developing with less effort.">
-    <meta name="author" content="BootstrapBay">
 
-    <link href="assets/img/favicon.ico" rel="icon" type="image/png">
-
-    <link rel="stylesheet" href="./assets/vendor/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/lazy.css">
-    <link rel="stylesheet" href="./assets/css/demo.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
-</head>
 <body class="profile">
 
     <div class="container">
         <div class="info">
+
             <div class="row">
                 <div class="col-12 col-md-4 text-center">
-                    <img src="" alt="Raised circle image" class="img-fluid rounded-circle shadow-lg" style="width: 180px;">
+                    <p></p>
+                    <img src="@Model.ImageUrl" idth="300px" height="180px" style="border-radius:15px">
                 </div>
                 <div class="col-12 col-md-8 d-flex flex-column align-items-center align-items-lg-start">
                     <div class="d-flex flex-row align-items-start mt-3 mt-lg-0">
                         <div class="name">
-                            <h2 class="mb-0">Lorde</h2>
+                            <h2 class="ml-lg-0">@Model.Name &nbsp;</h2>
                         </div>
-                        <a href="#a" class="btn btn-primary btn-pill btn-sm ml-3 mt-1">Follow</a>
+                        <span class="badge badge-secondary text-center">@Model.Gender</span>
                     </div>
                     <div class="stats d-flex flex-row align-items-center align-items-lg-start text-center text-lg-left">
-                        <div class="posts ml-2 ml-lg-0"><p class="lead"><b>134</b> posts</p></div>
-                        <div class="posts"><p class="lead"><b>6.6m</b> followers</p></div>
-                        <div class="posts"><p class="lead"><b>201</b> following</p></div>
+                        <div class="posts ml-2 ml-lg-0"><p class="lead"><b><i class="fas fa-city">  </i></b> @Model.CityName &nbsp;&nbsp;  </p></div>
+                        @if (Model.SpecieName == "Cat")
+                        {
+                            <div class="posts"><p class="lead"><b><i class="fas fa-cat"></i></b> @Model.BreedName  &nbsp;&nbsp;  </p></div>
+                        }
+                        @if (Model.SpecieName == "Dog")
+                        {
+                            <div class="posts"><p class="lead"><b><i class="fas fa-dog"></i></b> @Model.BreedName &nbsp;&nbsp; </p></div>
+                        }
+                        <div class="posts"><p class="lead"><b>@Model.TotalLikes</b> likes</i></p></div>
                     </div>
-                    <p class="lead mb-0 mt-2"><b>Ella Yelich-O'Connor</b></p>
-                    <p class="lead text-center text-lg-left">Let's let things come out of the woodwork.  I'll give you my best side, tell you all my best lies.  Yeah, awesome right?</p>
+                    <i class="fas fa-birthday-cake"> @Model.DateOfBirth.ToString("dd MMMM yyyy")</i>
+                    <hr />
+                    <p class="lead text-center text-lg-left">This is my Description</p>
                 </div>
             </div>
         </div>
@@ -55,12 +51,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#saved">
-                        <i class="far fa-bookmark"></i> Saved
+                        <i class="far fa-bookmark"></i> Comments
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#tagged">
-                        <i class="far fa-id-badge"></i> Tagged
+                        <i class="far fa-id-badge"></i> Likes
                     </a>
                 </li>
             </ul>
@@ -68,29 +64,23 @@
         <div class="profile-tabs tab-content">
             <div class="tab-pane fade show active" id="photos">
                 <div class="row">
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-4.jpg');"></div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-5.jpg');"></div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-6.jpg');"></div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-7.jpg');"></div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-8.jpg');"></div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="square" style="background-image:url('assets/img/dog-3.jpg');"></div>
-                    </div>
+                    @foreach (var image in Model.Images)
+                    {<div class="list">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <img src="@image.ImageUrl" idth="250px" height="250px" style="border-radius:10px">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
                 </div>
-                <div class="d-flex justify-content-center my-5">
-                    <a href="#a" class="btn btn-outline-primary btn-pill">Load More</a>
-                </div>
-            </div>
+    <div class="d-flex justify-content-center my-5">
+        <a href="#a" class="btn btn-outline-primary btn-pill">Load More</a>
+    </div>
+</div>
             <div class="tab-pane fade text-center" id="saved">
 
                 <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> Nothing saved yet.</p>

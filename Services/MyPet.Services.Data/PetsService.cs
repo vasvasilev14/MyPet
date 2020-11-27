@@ -62,15 +62,6 @@
             await this.petsRepository.SaveChangesAsync();
         }
 
-        public T GetById<T>(int id)
-        {
-            var pet = this.petsRepository.AllAsNoTracking()
-                .Where(x => x.Id == id)
-                .To<T>().FirstOrDefault();
-
-            return pet;
-        }
-
         public int GetCount()
         {
             return this.petsRepository.All().Count();
@@ -87,7 +78,7 @@
 
         public IEnumerable<T> GetMine<T>(int page, string addedByUserId, int itemsPerPage = 12)
         {
-            var pets = this.petsRepository.AllAsNoTracking().Where(x=>x.AddedByUserId==addedByUserId)
+            var pets = this.petsRepository.AllAsNoTracking().Where(x => x.AddedByUserId == addedByUserId)
                .OrderByDescending(x => x.Id)
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .To<T>().ToList();

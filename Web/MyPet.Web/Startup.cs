@@ -2,6 +2,14 @@
 {
     using System.Reflection;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using MyPet.Data;
     using MyPet.Data.Common;
     using MyPet.Data.Common.Repositories;
@@ -12,15 +20,6 @@
     using MyPet.Services.Mapping;
     using MyPet.Services.Messaging;
     using MyPet.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
@@ -67,12 +66,13 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>(); 
+            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IBreedsService, BreedsService>();
             services.AddTransient<IPetsService, PetsService>();
             services.AddTransient<ICitiesService, CitiesService>();
             services.AddTransient<IAboutService, AboutService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<IProfilesService, ProfilesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

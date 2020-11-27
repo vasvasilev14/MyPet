@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -73,11 +74,7 @@
             return this.Redirect("/");
         }
 
-        public IActionResult ById(int id)
-        {
-            var pet = this.petsService.GetById<SinglePetViewModel>(id);
-            return this.View(pet);
-        }
+      
 
         public IActionResult All(int id = 1)
         {

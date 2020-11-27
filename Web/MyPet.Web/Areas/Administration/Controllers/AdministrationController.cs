@@ -1,10 +1,9 @@
 ﻿namespace MyPet.Web.Areas.Administration.Controllers
 {
-    using MyPet.Common;
-    using MyPet.Web.Controllers;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MyPet.Common;
+    using MyPet.Web.Controllers;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
