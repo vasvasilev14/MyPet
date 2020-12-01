@@ -1,49 +1,49 @@
 ﻿@model MyPet.Web.ViewModels.Pets.AddPetInputModel
-@{ 
+@{
     this.ViewData["Ttile"] = "Add your pet";
     var breeds = this.Model.Breeds.Select(x => new SelectListItem(x.Value, x.Key));
     var cities = this.Model.Cities.Select(x => new SelectListItem(x.Value, x.Key));
 }
+<link href="~/css/Addbackground.css" rel="stylesheet" />
+<form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" class="form-control" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <div>
+            Male:   @Html.RadioButton("Gender", "Male")
 
-    <form method="post" class="col-md-6 offset-md-3" enctype="multipart/form-data">
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            Female: @Html.RadioButton("Gender", "Female")
         </div>
-        <div class="form-group">
-            <label asp-for="DateOfBirth"></label>
-            <input asp-for="DateOfBirth" class="form-control" />
-            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Gender"></label>
-            <div>
-                Male:   @Html.RadioButton("Gender", "Male")
-
-                Female: @Html.RadioButton("Gender", "Female")
-            </div>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="BreedId">Breed</label>
-            <select asp-for="BreedId" class="form-control" asp-items="breeds">
-                <option selected>Breedless</option>
-            </select>
-            <span asp-validation-for="BreedId" class="text-danger"></span>
-        </div>
-        <div class="form-group" enctype="multipart/form-data">
-            <label asp-for="Images"></label>
-            <input asp-for="Images" class="form-control" />
-            <span asp-validation-for="Images" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="CityId">City</label>
-            <select asp-for="CityId" class="form-control" asp-items="cities">
-                <option disabled selected>--- SELECT ---</option>
-            </select>
-            <span asp-validation-for="CityId" class="text-danger"></span>
-        </div>
-        <input type="submit" class="btn-primary" />
-    </form>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BreedId">Breed</label>
+        <select asp-for="BreedId" class="form-control" asp-items="breeds">
+            <option selected>Breedless</option>
+        </select>
+        <span asp-validation-for="BreedId" class="text-danger"></span>
+    </div>
+    <div class="form-group" enctype="multipart/form-data">
+        <label asp-for="Images"></label>
+        <input asp-for="Images" class="form-control" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CityId">City</label>
+        <select asp-for="CityId" class="form-control" asp-items="cities">
+            <option disabled selected>--- SELECT ---</option>
+        </select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn-primary" />
+</form>
 

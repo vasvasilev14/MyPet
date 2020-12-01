@@ -41,6 +41,9 @@
     <Content Update="Views\Pets\Add.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\images\site\Add-background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\pets\c362d585-f7e8-4499-b9f5-ee1b2fbe2111.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

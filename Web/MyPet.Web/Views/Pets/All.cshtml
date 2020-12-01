@@ -1,9 +1,5 @@
-﻿
-
-
-@model MyPet.Web.ViewModels.Pets.PetsListViewModel
+﻿@model MyPet.Web.ViewModels.Pets.PetsListViewModel
 @{ this.ViewData["Title"] = "All Pets";}
-
 <center><h1>@this.ViewData["Title"]</h1></center>
 <hr />
 <body>
@@ -30,19 +26,19 @@
 <li style="list-style-type:none;">
     <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
 </li> }
-                else
-                {
+else
+{
 
-                    var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age * 12);
+var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age * 12);
 <li style="list-style-type:none;">
     <i class="fas fa-birthday-cake"></i><span class="card-text"> @pet.Age,@months years old.</span>
-</li>                }
+</li>           }
             </div>
             <div class="card-footer">
                 <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
                 <button type="button" id="@pet.Id" value="@pet.Id" class="btn btn-outline-danger btn-icon float-right"><span id="totalLikes-@pet.Id">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
-              
-               
+
+
             </div>
         </div>
     </div>
@@ -54,10 +50,10 @@
 <form method="post" id="antiForgeryForm"></form>
 @section Scripts {
     <script>
-    $("button[id]").each(function (el) {
+        $("button[id]").each(function (el) {
             $(this).click(function () {
                 var counter = 1;
-                var petId = Number($(this).attr("id"));                
+                var petId = Number($(this).attr("id"));
                 var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
                 var data = { petId: petId, counter: counter };
                 $.ajax({
@@ -68,8 +64,8 @@
                         'X-CSRF-TOKEN': antiForgeryToken
                     },
                     success: function (data) {
-                        var id = document.getElementById(petId).value 
-                        var path = '#' + 'totalLikes' +'-'+ id
+                        var id = document.getElementById(petId).value
+                        var path = '#' + 'totalLikes' + '-' + id
                         $(path).html(data.totalLikes);
                     },
                     contentType: 'application/json',
