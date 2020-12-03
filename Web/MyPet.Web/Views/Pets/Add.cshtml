@@ -28,7 +28,7 @@
     <div class="form-group">
         <label asp-for="BreedId">Breed</label>
         <select asp-for="BreedId" class="form-control" asp-items="breeds">
-            <option selected>Breedless</option>
+            <option disabled selected>--- SELECT ---</option>
         </select>
         <span asp-validation-for="BreedId" class="text-danger"></span>
     </div>

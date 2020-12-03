@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyPet.Web.ViewModels.Pets
+﻿namespace MyPet.Web.ViewModels.Pets
 {
-   public class PetImagesViewModel
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    public class PetImagesViewModel
     {
+        public string Id { get; set; }
+
         public string ImageUrl { get; set; }
     }
 }

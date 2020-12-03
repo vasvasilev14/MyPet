@@ -11,11 +11,10 @@
 
     <div class="container">
         <div class="info">
-
             <div class="row">
                 <div class="col-12 col-md-4 text-center">
                     <p></p>
-                    <img src="@Model.ImageUrl" idth="300px" height="180px" style="border-radius:15px">
+                    <img src="@Model.ImageUrl" idth="300" height="180" style="border-radius:15px">
                 </div>
                 <div class="col-12 col-md-8 d-flex flex-column align-items-center align-items-lg-start">
                     <div class="d-flex flex-row align-items-start mt-3 mt-lg-0">
@@ -41,68 +40,61 @@
                     <p class="lead text-center text-lg-left">This is my Description</p>
                 </div>
             </div>
-        </div>
-        <div class="navigation d-flex justify-content-center">
-            <ul class="nav nav-primary nav-tabs mt-3 d-flex flex-column flex-md-row">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#photos">
-                        <i class="fas fa-th"></i> Photos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#saved">
-                        <i class="far fa-bookmark"></i> Comments
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tagged">
-                        <i class="far fa-id-badge"></i> Likes
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="profile-tabs tab-content">
-            <div class="tab-pane fade show active" id="photos">
-                <div class="row">
-                    @foreach (var image in Model.Images)
-                    {<div class="list">
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <img src="@image.ImageUrl" idth="250px" height="250px" style="border-radius:10px">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @if (this.User.Identity.Name == Model.Email)
+            {
+
+
+            }
+            <div class="navigation d-flex justify-content-center">
+                <ul class="nav nav-primary nav-tabs mt-3 d-flex flex-column flex-md-row">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#photos">
+                            <i class="fas fa-th"></i> Photos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#saved">
+                            <i class="far fa-bookmark"></i> Comments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tagged">
+                            <i class="far fa-id-badge"></i> Likes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="profile-tabs tab-content">
+                <div class="tab-pane fade show active " id="photos">
+                    <div class="row">
+                        @foreach (var image in Model.Images)
+                        {<div class="list">
+                                <div class="row-cols-xl-6">
+                                    <div class="col-12 col-md-4">
+                                        @if (this.User.Identity.Name == Model.Email)
+                                        {
+
+                                            <a class="btn btn-danger btn-sm" sp-controller="Profiles" asp-action="Delete" asp-route-id="@image.Id" asp-route-petId="@Model.Id">X</a>
+                                        }
+                                        <img src="@image.ImageUrl" idth="250" height="250" style="border-radius:10px">
+                                        &nbsp;
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-
+                        }
+                    </div>
 
                 </div>
-    <div class="d-flex justify-content-center my-5">
-        <a href="#a" class="btn btn-outline-primary btn-pill">Load More</a>
-    </div>
-</div>
-            <div class="tab-pane fade text-center" id="saved">
+                <div class="tab-pane fade text-center" id="saved">
 
-                <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> Nothing saved yet.</p>
-            </div>
-            <div class="tab-pane fade text-center" id="tagged">
-                <p class="lead">Help people tag you.</p>
-                <a href="#a" class="btn btn-info btn-pill">Find Friends</a>
+                    <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> Nothing saved yet.</p>
+                </div>
+                <div class="tab-pane fade text-center" id="tagged">
+                    <p class="lead">Help people tag you.</p>
+                    <a href="#a" class="btn btn-info btn-pill">Find Friends</a>
+                </div>
             </div>
         </div>
-
     </div>
-
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="./assets/vendor/jquery/jquery.min.js"></script>
-    <script src="./assets/vendor/popper/popper.min.js"></script>
-    <script src="./assets/vendor/bootstrap/bootstrap.min.js"></script>
-
-    <!-- optional plugins -->
-    <script src="./assets/vendor/nouislider/js/nouislider.min.js"></script>
-
-    <!--   lazy javascript -->
-    <script src="./assets/js/lazy.js"></script>
 </body>
 </html>

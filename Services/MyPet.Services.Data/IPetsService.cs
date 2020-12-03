@@ -16,5 +16,7 @@
         IEnumerable<T> GetMine<T>(int page, string addedByUserId, int itemsPerPage = 12);
 
         int GetCount();
+
+        Task<bool> DeleteAsync(int petId, string userId);
     }
 }

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-   public class IndexViewModel
+    public class IndexViewModel
     {
         public int BreedsCount { get; set; }
 

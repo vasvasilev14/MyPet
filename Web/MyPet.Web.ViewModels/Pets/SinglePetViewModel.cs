@@ -29,10 +29,10 @@
 
         public string ImageUrl { get; set; }
 
+        public string Email { get; set; }
+
         public ICollection<PetImagesViewModel> Images { get; set; }
 
         public int TotalLikes { get; set; }
-
-
     }
 }

@@ -24,7 +24,6 @@
 
         public async Task AddAsync(AddPetInputModel input, int specieId, string userId, string imagePath)
         {
-
             string genderAsString = input.Gender;
             Gender gender = (Gender)Enum.Parse(typeof(Gender), genderAsString);
             var pet = new Pet()
@@ -83,6 +82,20 @@
                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                .To<T>().ToList();
             return pets;
+        }
+
+        public async Task<bool> DeleteAsync(int petId, string userId)
+        {
+            var pet = this.petsRepository.All().FirstOrDefault(x => x.Id == petId);
+
+            if (userId != pet.AddedByUserId)
+            {
+                return false;
+            }
+
+            this.petsRepository.Delete(pet);
+            await this.petsRepository.SaveChangesAsync();
+            return true;
         }
     }
 }
