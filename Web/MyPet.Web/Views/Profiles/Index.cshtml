@@ -92,7 +92,7 @@
                 <div class="tab-pane fade text-center" id="tagged">
                     @foreach (var like in Model.Likes)
                     {                        
-                        <div class="list">@like.CreatedOn.ToString("MMMM dd, yyyy") by -> <a href="/Users/MyPets?addedByUserId=@like.UserId">@like.Email </a></div>
+                        <div class="list">@like.CreatedOn.ToString("dd/MM/yyyy") by -> <a href="/Users/MyPets?addedByUserId=@like.UserId">@like.Email </a></div>
                     }
                     </>
                 </div>
