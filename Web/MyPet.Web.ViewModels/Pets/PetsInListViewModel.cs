@@ -15,6 +15,8 @@
 
         public string ImageUrl { get; set; }
 
+        public string AddedByUserId { get; set; }
+
         public string Name { get; set; }
 
         public Breed Breed { get; set; }

@@ -90,10 +90,12 @@
                     <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> Nothing saved yet.</p>
                 </div>
                 <div class="tab-pane fade text-center" id="tagged">
-                    <p class="lead">Help people tag you.</p>
-                    <a href="#a" class="btn btn-info btn-pill">Find Friends</a>
+                    @foreach (var like in Model.Likes)
+                    {                        
+                        <div class="list">@like.CreatedOn.ToString("MMMM dd, yyyy") by -> <a href="/Users/MyPets?addedByUserId=@like.UserId">@like.Email </a></div>
+                    }
+                    </>
                 </div>
-            </div>
         </div>
     </div>
 </body>

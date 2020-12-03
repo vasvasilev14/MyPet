@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MyPet.Data.Models;
@@ -38,6 +38,7 @@
             return this.Redirect("/Pets/All");
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(string id, int petId)
         {
                 var userId = this.userManager.GetUserId(this.User);

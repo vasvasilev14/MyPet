@@ -33,6 +33,8 @@
 
         public ICollection<PetImagesViewModel> Images { get; set; }
 
+        public ICollection<LikesPetViewModel> Likes { get; set; }
+
         public int TotalLikes { get; set; }
     }
 }

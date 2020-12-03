@@ -1,51 +1,57 @@
-﻿
+﻿@using MyPet.Common
+@using MyPet.Data.Models
+@using Microsoft.AspNetCore.Identity
 @model MyPet.Web.ViewModels.Pets.PetsListViewModel
-@{ this.ViewData["Title"] = "My Pets";}
+@inject UserManager<ApplicationUser> UserManager
 
-<center><h1>@this.ViewData["Title"]</h1></center>
+
 <hr />
 <body>
-
     <div class="row">
+      @if (this.Model.Pets.Count()<1)
+       {
+           <center><h1>There is no pets</h1></center>
+       }
         @foreach (var pet in this.Model.Pets)
         {
-        <div class="col-md-3">
-            <div class="component">
-                <div class="card bg-light">
-                    <div class="card-header">
-                        <img class="card-img" width="150px" height="150px" style="border-radius:15px" src="@pet.ImageUrl">
-                    </div>
-                    <div class="card-body">
+            <div class="col-md-3">
+                <div class="component">
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <img class="card-img" width="150" height="150" style="border-radius:15px" src="@pet.ImageUrl">
+                        </div>
+                        <div class="card-body">
 
-                        <h class="badge badge-pill">@pet.Breed.Name</h>
-                        <span class="badge badge-secondary">@pet.Gender</span>
-                        <h1 class="card-title ">@pet.Name</h1>
+                            <h class="badge badge-pill">@pet.Breed.Name</h>
+                            <span class="badge badge-secondary">@pet.Gender</span>
+                            <h1 class="card-title ">@pet.Name</h1>
 
-                        <li style="list-style-type:none;"><i class="fas fa-city"></i> <span class="card-text "> @pet.City.Name</span></li>
-                        @if (pet.Age == 0)
-                {
-                    var months = (int)(DateTime.Today - pet.DateOfBirth).Days/12 ;
-                        <li style="list-style-type:none;">
-                            <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
-                        </li>
-                }
-                else
-                {
+                            <li style="list-style-type:none;"><i class="fas fa-city"></i> <span class="card-text "> @pet.City.Name</span></li>
+                            @if (pet.Age == 0)
+                            {
+                                var months = (int)(DateTime.Today - pet.DateOfBirth).Days / 12;
+                                <li style="list-style-type:none;">
+                                    <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
+                                </li> }
+                            else
+                            {
 
-                var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167-pet.Age*12);
-                        <li style="list-style-type:none;">
-                            <i class="fas fa-birthday-cake"></i><span class="card-text"> @pet.Age,@months years old.</span>
-                        </li>
-                }
-                    </div>
-                    <div class="card-footer">
-                        <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
-                        <a href="/Users/Delete?petId=@pet.Id" class="btn btn-danger">Delete</a>
-                        <button type="button" class="btn btn-outline-danger btn-icon float-right">@pet.TotalLikes<i class="fas fa-paw"></i></button>
+                                var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age * 12);
+                                <li style="list-style-type:none;">
+                                    <i class="fas fa-birthday-cake"></i><span class="card-text"> @pet.Age,@months years old.</span>
+                                </li>}
+                        </div>
+                        <div class="card-footer">
+                            <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
+                            @if (this.UserManager.GetUserId(this.User) == pet.AddedByUserId)
+                            {
+                                <a href="/Users/Delete?petId=@pet.Id" class="btn btn-danger">Delete</a>
+                            }
+                            <button type="button" class="btn btn-outline-danger btn-icon float-right">@pet.TotalLikes<i class="fas fa-paw"></i></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>}
+            </div>}
     </div>
 </body>
 <hr />

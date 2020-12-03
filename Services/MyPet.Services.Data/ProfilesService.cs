@@ -57,6 +57,7 @@
                 Images = x.Images.Select(x => new PetImagesViewModel { ImageUrl = "/images/pets/" + x.Id + "." + x.Extension, Id = x.Id }).ToList(),
                 ImageUrl = x.Images.FirstOrDefault().RemoteImageUrl ?? "/images/pets/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension,
                 Name = x.Name,
+                Likes = x.Likes.Select(x => new LikesPetViewModel { Email = x.User.Email, PetId = x.Id, UserId = x.UserId, CreatedOn = x.CreatedOn }).ToList(),
                 TotalLikes = x.Likes.Count() == 0 ? 0 : x.Likes.Sum(c => c.Counter),
             }).FirstOrDefault();
         }
