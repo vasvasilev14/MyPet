@@ -42,7 +42,9 @@
             </div>
             @if (this.User.Identity.Name == Model.Email)
             {
-
+                <div class="single-meta">
+                    <a asp-action="Edit"  asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                </div>
 
             }
             <div class="navigation d-flex justify-content-center">

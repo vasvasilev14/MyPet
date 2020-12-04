@@ -61,8 +61,7 @@
                 input.Cities = this.citiesService.GetAllAsKeyValuePairs();
                 return this.View(input);
             };
-
-           // ICollection<IFormFile> files = input.Images;
+            
             var user = await this.userManager.GetUserAsync(this.User);
             var result = await CloudinaryExtentsion.UploadAsync(this.cloudinary, input.Images);
             await this.petsService.AddAsync(input, specieId, user.Id, result);
