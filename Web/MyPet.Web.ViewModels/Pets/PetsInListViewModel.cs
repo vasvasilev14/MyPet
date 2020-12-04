@@ -42,7 +42,7 @@
                     opt.MapFrom(x => x.Likes.Count() == 0 ? 0 : x.Likes.Sum(c => c.Counter)))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
-                        x.Images.FirstOrDefault().RemoteImageUrl ?? "/images/pets/" + x.Images.FirstOrDefault().Id + "." + x.Images.FirstOrDefault().Extension));
+                        x.Images.FirstOrDefault().Url));
         }
     }
 }

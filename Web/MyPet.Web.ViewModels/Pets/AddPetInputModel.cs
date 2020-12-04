@@ -11,7 +11,10 @@
     using MyPet.Services.Mapping;
 
     public class AddPetInputModel : IMapFrom<Pet>
+
     {
+        public int Id { get; set; }
+
         [MinLength(2)]
         public string Name { get; set; }
 

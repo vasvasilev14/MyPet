@@ -9,7 +9,7 @@
 
     public interface IPetsService
     {
-        Task AddAsync(AddPetInputModel inputModel, int specieId, string userId, string imagePath);
+        Task AddAsync(AddPetInputModel inputModel, int specieId, string userId, List<string> imagePaths);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 

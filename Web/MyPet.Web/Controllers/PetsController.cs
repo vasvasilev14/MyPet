@@ -4,13 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using MyPet.Data.Models;
     using MyPet.Services.Data;
+    using MyPet.Web.ClounaryHelper;
     using MyPet.Web.ViewModels.Pets;
 
     public class PetsController : BaseController
@@ -20,19 +22,22 @@
         private readonly ICitiesService citiesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
+        private readonly Cloudinary cloudinary;
 
         public PetsController(
             IBreedsService breedsService,
             IPetsService petsService,
             ICitiesService citiesService,
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            Cloudinary cloudinary)
         {
             this.breedsService = breedsService;
             this.petsService = petsService;
             this.citiesService = citiesService;
             this.userManager = userManager;
             this.environment = environment;
+            this.cloudinary = cloudinary;
         }
 
         [Authorize]
@@ -55,22 +60,12 @@
                 input.Breeds = this.breedsService.GetAllAsKeyValuePairs(specieId);
                 input.Cities = this.citiesService.GetAllAsKeyValuePairs();
                 return this.View(input);
-            }
+            };
 
+           // ICollection<IFormFile> files = input.Images;
             var user = await this.userManager.GetUserAsync(this.User);
-
-            try
-            {
-                await this.petsService.AddAsync(input, specieId, user.Id, $"{this.environment.WebRootPath}/images");
-            }
-            catch (Exception ex)
-            {
-                this.ModelState.AddModelError(string.Empty, ex.Message);
-                input.Breeds = this.breedsService.GetAllAsKeyValuePairs(specieId);
-                input.Cities = this.citiesService.GetAllAsKeyValuePairs();
-                return this.View(input);
-            }
-
+            var result = await CloudinaryExtentsion.UploadAsync(this.cloudinary, input.Images);
+            await this.petsService.AddAsync(input, specieId, user.Id, result);
             return this.Redirect("/");
         }
 

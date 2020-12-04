@@ -17,11 +17,7 @@
 
         public virtual Pet Pets { get; set; }
 
-        public string Extension { get; set; }
-
-        public string RemoteImageUrl { get; set; }
-
-        //// The contents of the image is in the file system
+        public string Url { get; set; }
 
         public string AddedByUserId { get; set; }
 
