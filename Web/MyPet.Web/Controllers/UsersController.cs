@@ -31,6 +31,7 @@
                 return this.NotFound();
             }
 
+            var userName = this.userManager.FindByIdAsync(addedByUserId).Result.UserName;
             const int ItemsPerPage = 8;
             var viewModel = new PetsListViewModel
             {
@@ -38,6 +39,7 @@
                 PageNumber = id,
                 PetsCount = this.petsService.GetCount(),
                 Pets = this.petsService.GetMine<PetsInListViewModel>(id, addedByUserId, ItemsPerPage),
+                UserName = userName,
             };
             return this.View(viewModel);
         }

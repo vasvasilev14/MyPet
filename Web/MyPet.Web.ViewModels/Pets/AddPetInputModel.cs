@@ -16,19 +16,25 @@
         public int Id { get; set; }
 
         [MinLength(2)]
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         [CurrentYearMaxValueAttribute(1950)]
         [Display(Name = "Date of Birthday")]
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
         public string Gender { get; set; }
 
+        [Required]
         public int BreedId { get; set; }
 
+        [Required]
         public int CityId { get; set; }
 
+        [Required]
         public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> Breeds { get; set; }

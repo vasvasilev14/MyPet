@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using MyPet.Data.Common.Models;
@@ -13,6 +14,7 @@
             this.Pets = new HashSet<Pet>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Pet> Pets { get; set; }

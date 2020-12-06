@@ -15,5 +15,9 @@
        Task<bool> DeleteAsync(string imageUrl, string userId);
 
        Task UpdateAsync(int id, EditProfileInputModel input, string userId, List<string> imagePaths);
+
+       Task UpdateAsync(int id, EditProfileInputModel input, string userId);
+
+       string GetName(int id);
     }
 }

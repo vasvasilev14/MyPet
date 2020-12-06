@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using MyPet.Data.Common.Models;
@@ -14,20 +15,25 @@
             this.Likes = new HashSet<Like>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
         public Gender Gender { get; set; }
 
+        [Required]
         public string AddedByUserId { get; set; }
 
         public virtual ApplicationUser AddedByUser { get; set; }
 
+        [Required]
         public int SpecieId { get; set; }
 
         public virtual Specie Specie { get; set; }
 
+        [Required]
         public int BreedId { get; set; }
 
         public virtual Breed Breed { get; set; }
@@ -40,6 +46,7 @@
 
         public virtual SellMarket SellMarket { get; set; }
 
+        [Required]
         public int CityId { get; set; }
 
         public virtual City City { get; set; }

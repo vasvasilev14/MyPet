@@ -43,6 +43,13 @@
             return true;
         }
 
+        public string GetName(int id)
+        {
+            var targetPet = this.petsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id);
+            var name = targetPet.Name;
+            return name;
+        }
+
         public SinglePetViewModel PetProfileInfo(int petId)
         {
             return this.petsRepository.AllAsNoTracking().Where(x => x.Id == petId).Select(x => new SinglePetViewModel
@@ -55,8 +62,8 @@
                 Gender = x.Gender,
                 Id = x.Id,
                 Email = x.AddedByUser.Email,
-                Images = x.Images.Select(x => new PetImagesViewModel { ImageUrl = x.Url, Id = x.Id }).ToList(),
-                ImageUrl = x.Images.FirstOrDefault().Url !=null ? x.Images.FirstOrDefault().Url : x.Images.FirstOrDefault().Url,
+                Images = x.Images.Select(x => new PetImagesViewModel { ImageUrl = x.Url, Id = x.Id, CreatedOn = x.CreatedOn }).OrderByDescending(x => x.CreatedOn).ToList(),
+                ImageUrl = x.Images.OrderBy(x => x.CreatedOn).FirstOrDefault().Url,
                 Name = x.Name,
                 Likes = x.Likes.Select(x => new LikesPetViewModel { Email = x.User.Email, PetId = x.Id, UserId = x.UserId, CreatedOn = x.CreatedOn }).ToList(),
                 TotalLikes = x.Likes.Count() == 0 ? 0 : x.Likes.Sum(c => c.Counter),
@@ -82,6 +89,14 @@
             profiles.Name = input.Name;
            // profiles.Contact.Description = input.Description;
             profiles.Images = images;
+
+            await this.petsRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(int id, EditProfileInputModel input, string userId)
+        {
+            var profiles = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
+            profiles.Name = input.Name;
 
             await this.petsRepository.SaveChangesAsync();
         }

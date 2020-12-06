@@ -5,20 +5,21 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
+<center><h1>@Model.UserName 's pets </h1></center>
+@if (this.Model.Pets.Count() < 1)
+{
+    <center><h1>There is no pets</h1></center>
+}
 <hr />
 <body>
     <div class="row">
-      @if (this.Model.Pets.Count()<1)
-       {
-           <center><h1>There is no pets</h1></center>
-       }
         @foreach (var pet in this.Model.Pets)
         {
             <div class="col-md-3">
                 <div class="component">
                     <div class="card bg-light">
                         <div class="card-header">
-                            <img class="card-img" width="150" height="150" style="border-radius:15px" src="@pet.ImageUrl">
+                            <img class="card-img" idth="300" height="180" style="border-radius:45px" src="@pet.ImageUrl">
                         </div>
                         <div class="card-body">
 

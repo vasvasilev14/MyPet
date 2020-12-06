@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -25,7 +26,7 @@
             SignInManager<ApplicationUser> signInManager,
             IProfilesService profilesService,
             UserManager<ApplicationUser> userManager,
-             Cloudinary cloudinary)
+            Cloudinary cloudinary)
         {
             this.signInManager = signInManager;
             this.profilesService = profilesService;
@@ -74,12 +75,21 @@
                 return this.View();
             }
 
-            var result = await CloudinaryExtentsion.UploadAsync(this.cloudinary, input.Images);
+            if (input.Name == null)
+            {
+                input.Name = this.profilesService.GetName(input.Id);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.profilesService.UpdateAsync(input.Id, input, user.Id, result);
+            if (input.Images != null)
+            {
+                var result = await CloudinaryExtentsion.UploadAsync(this.cloudinary, input.Images);
+                await this.profilesService.UpdateAsync(input.Id, input, user.Id, result);
+            }
+
+            await this.profilesService.UpdateAsync(input.Id, input, user.Id);
 
             return this.Redirect($"/Profiles/Index?petId={input.Id}");
         }
-
     }
 }

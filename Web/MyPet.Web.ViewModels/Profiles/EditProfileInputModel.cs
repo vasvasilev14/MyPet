@@ -11,14 +11,12 @@
 
     public class EditProfileInputModel
     {
+        [Required]
         public int Id { get; set; }
-
-       // public string Description { get; set; }
 
         [MinLength(2)]
         public string Name { get; set; }
 
         public IEnumerable<IFormFile> Images { get; set; }
-
     }
 }

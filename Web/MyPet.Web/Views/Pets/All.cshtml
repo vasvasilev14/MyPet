@@ -11,7 +11,7 @@
     <div class="component">
         <div class="card bg-light">
             <div class="card-header">
-                <img class="card-img" width="150" height="150" style="border-radius:15px" src="@pet.ImageUrl">
+                <img class="card-img" idth="300" height="180" style="border-radius:45px" src="@pet.ImageUrl">
             </div>
             <div class="card-body">
 
@@ -36,7 +36,8 @@ var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age *
             </div>
             <div class="card-footer">
                 <a href="/Profiles/Index?petId=@pet.Id" class="btn btn-outline-primary">Profile</a>
-                <button type="button" id="@pet.Id" value="@pet.Id" class="btn btn-outline-danger btn-icon float-right"><span id="totalLikes-@pet.Id">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
+                
+                <button type="button" id="@pet.Id" value="@pet.Id" class="btn btn-outline-danger btn-icon float-right "><span id="totalLikes-@pet.Id">@pet.TotalLikes.ToString("0")</span><i class="fas fa-paw"></i></button>
 
 
             </div>
@@ -53,7 +54,7 @@ var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age *
         $("button[id]").each(function (el) {
             $(this).click(function () {
                 var counter = 1;
-                var petId = Number($(this).attr("id"));
+                var petId = Number($(this).attr("id"));               
                 var antiForgeryToken = $('#antiForgeryForm input[name=__RequestVerificationToken]').val();
                 var data = { petId: petId, counter: counter };
                 $.ajax({
@@ -72,4 +73,5 @@ var months = (int)((DateTime.Today - pet.DateOfBirth).Days / 30.4167 - pet.Age *
                 });
             })
         });</script>
-}
+    
+    }

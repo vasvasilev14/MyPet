@@ -42,7 +42,7 @@
                     opt.MapFrom(x => x.Likes.Count() == 0 ? 0 : x.Likes.Sum(c => c.Counter)))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
-                        x.Images.FirstOrDefault().Url));
+                        x.Images.OrderBy(x => x.CreatedOn).FirstOrDefault().Url));
         }
     }
 }

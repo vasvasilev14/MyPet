@@ -7,5 +7,7 @@
     public class PetsListViewModel : PagingViewModel
     {
         public IEnumerable<PetsInListViewModel> Pets { get; set; }
+
+        public string UserName { get; set; }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -60,12 +61,12 @@
                 input.Breeds = this.breedsService.GetAllAsKeyValuePairs(specieId);
                 input.Cities = this.citiesService.GetAllAsKeyValuePairs();
                 return this.View(input);
-            };
-            
-            var user = await this.userManager.GetUserAsync(this.User);
+            }
+
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
             var result = await CloudinaryExtentsion.UploadAsync(this.cloudinary, input.Images);
             await this.petsService.AddAsync(input, specieId, user.Id, result);
-            return this.Redirect("/");
+            return this.Redirect($"/Users/MyPets?addedByUserId={user.Id}");
         }
 
         public IActionResult All(int id = 1)
