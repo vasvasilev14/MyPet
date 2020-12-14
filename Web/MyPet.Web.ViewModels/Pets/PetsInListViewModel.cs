@@ -35,6 +35,7 @@
 
         public int TotalLikes { get; set; }
 
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Pet, PetsInListViewModel>()

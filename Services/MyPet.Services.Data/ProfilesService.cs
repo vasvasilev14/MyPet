@@ -67,6 +67,8 @@
                 Name = x.Name,
                 Likes = x.Likes.Select(x => new LikesPetViewModel { Email = x.User.Email, PetId = x.Id, UserId = x.UserId, CreatedOn = x.CreatedOn }).ToList(),
                 TotalLikes = x.Likes.Count() == 0 ? 0 : x.Likes.Sum(c => c.Counter),
+                Description = x.Description ?? string.Empty,
+                Comments = x.Comments.Select(x => new PetCommentViewModel { AddedByUserId = x.AddedByUserId, CreatedOn = x.CreatedOn, Description = x.Description, Id = x.Id, Email = x.AddedByUser.Email }).OrderByDescending(x => x.CreatedOn).ToList(),
             }).FirstOrDefault();
         }
 
@@ -87,8 +89,11 @@
 
             var profiles = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
             profiles.Name = input.Name;
-           // profiles.Contact.Description = input.Description;
             profiles.Images = images;
+            if (input.Description != null)
+            {
+                profiles.Description = input.Description;
+            }
 
             await this.petsRepository.SaveChangesAsync();
         }
@@ -97,6 +102,10 @@
         {
             var profiles = this.petsRepository.All().FirstOrDefault(x => x.Id == id);
             profiles.Name = input.Name;
+            if (input.Description != null)
+            {
+                profiles.Description = input.Description;
+            }
 
             await this.petsRepository.SaveChangesAsync();
         }

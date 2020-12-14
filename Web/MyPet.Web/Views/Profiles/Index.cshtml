@@ -34,15 +34,19 @@
                         <div class="posts"><p class="lead"><b>@Model.TotalLikes</b> likes</p></div>
                     </div>
                     <i class="fas fa-birthday-cake"> @Model.DateOfBirth.ToString("dd MMMM yyyy")</i>
+                    <div> <i class="fas fa-user-alt"><a href="/Users/MyPets?addedByUserId=@Model.AddedByUserId">@Model.Email </a></i></div>
+                   
+                    
                     <hr />
-                    <p class="lead text-center text-lg-left">This is my Description</p>
+                    <p class="lead text-center text-lg-left">@Model.Description</p>
                 </div>
             </div>
             @if (this.User.Identity.Name == Model.Email)
             {
-                <div class="single-meta">
+                <div class="text-center">
                     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
                 </div>
+
 
             }
             <div class="navigation d-flex justify-content-center">
@@ -53,12 +57,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#saved">
+                        <a class="nav-link" data-toggle="tab" href="#comments">
                             <i class="far fa-bookmark"></i> Comments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tagged">
+                        <a class="nav-link" data-toggle="tab" href="#likes">
                             <i class="far fa-id-badge"></i> Likes
                         </a>
                     </li>
@@ -72,11 +76,12 @@
                                 <div class="row-cols-xl-6">
                                     <div class="col-12 col-md-4">
                                         @if (this.User.Identity.Name == Model.Email)
-                                        {
-
-                                            <a class="btn btn-danger btn-sm" sp-controller="Profiles" asp-action="Delete" asp-route-id="@image.Id" asp-route-petId="@Model.Id">X</a>
+                                        {<div class="row-1 col-12">
+                                                <a class="btn btn-danger btn-sm " asp-controller="Profiles" asp-action="Delete" asp-route-id="@image.Id" asp-route-petId="@Model.Id">X</a>
+                                            </div>
                                         }
                                         <img src="@image.ImageUrl" idth="250" height="250" style="border-radius:10px">
+
                                         &nbsp;
                                     </div>
                                 </div>
@@ -85,19 +90,55 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade text-center" id="saved">
+                <div class="tab-pane fade text-center" id="comments">
+                    <form asp-action="AddComment" method="post">
+                        <label for="Description"></label>
+                        <div class="row offset-3">
+                            <div class="col-8">
+                                <textarea class="form-control" id="Description" name="Description"></textarea>
+                            </div>
+                            </div>
+                        <input type="hidden" name="petId" value="@Model.Id" />
+                        <input type="submit" class="btn-sm btn-outline-success" value="Comment">
+                    </form>
 
-                    <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> Nothing saved yet.</p>
+                    @foreach (var comment in Model.Comments)
+                    {
+                <div class="row offset-3">
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-body">
+                                @if (comment.Email == this.User.Identity.Name || this.User.Identity.Name == Model.Email)
+                                {
+                                    <div class="col-1"> <a class="btn btn-danger btn-sm" asp-controller="Profiles" asp-action="DeleteComment" asp-route-id="@comment.Id" asp-route-petId="@Model.Id">X</a></div>
+                                }
+
+                            <a href="/Users/MyPets?addedByUserId=@comment.AddedByUserId">@comment.Email </a> : @comment.Description  <br /> @comment.CreatedOn.ToString("dd/MM/yy")
+                            </div>
+                            
+                           
+                        </div>
+                    </div>
                 </div>
-                <div class="tab-pane fade text-center" id="tagged">
+
+                    }
+                    @if (Model.Comments.Count == 0)
+                    {
+                        <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> No comments yet.</p>
+                    }
+
+                </div>
+                <div class="tab-pane fade text-center" id="likes">
                     @foreach (var like in Model.Likes)
                     {
                         <div class="list">@like.CreatedOn.ToString("dd/MM/yyyy") by -> <a href="/Users/MyPets?addedByUserId=@like.UserId">@like.Email </a></div>
+
+                    }  @if (Model.Likes.Count == 0)
+                    {
+                        <p class="lead"><span class="text-danger"><i class="far fa-frown-open"></i></span> No comments yet.</p>
                     }
-                    </>
                 </div>
             </div>
         </div>
     </div>
 </body>
-

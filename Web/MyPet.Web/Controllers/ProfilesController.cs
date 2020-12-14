@@ -13,6 +13,7 @@
     using MyPet.Data.Models;
     using MyPet.Services.Data;
     using MyPet.Web.ClounaryHelper;
+    using MyPet.Web.ViewModels.Pets;
     using MyPet.Web.ViewModels.Profiles;
 
     public class ProfilesController : BaseController
@@ -21,17 +22,20 @@
         private readonly IProfilesService profilesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly Cloudinary cloudinary;
+        private readonly ICommentsService commentsService;
 
         public ProfilesController(
             SignInManager<ApplicationUser> signInManager,
             IProfilesService profilesService,
             UserManager<ApplicationUser> userManager,
-            Cloudinary cloudinary)
+            Cloudinary cloudinary,
+            ICommentsService commentsService)
         {
             this.signInManager = signInManager;
             this.profilesService = profilesService;
             this.userManager = userManager;
             this.cloudinary = cloudinary;
+            this.commentsService = commentsService;
         }
 
         [Authorize]
@@ -49,14 +53,14 @@
         [Authorize]
         public async Task<IActionResult> Delete(string id, int petId)
         {
-                var userId = this.userManager.GetUserId(this.User);
-                var isDeleted = await this.profilesService.DeleteAsync(id, userId);
-                if (!isDeleted)
-                {
-                    return this.Redirect("/Home/Error");
-                }
+            var userId = this.userManager.GetUserId(this.User);
+            var isDeleted = await this.profilesService.DeleteAsync(id, userId);
+            if (!isDeleted)
+            {
+                return this.Redirect("/Home/Error");
+            }
 
-                return this.Redirect($"/Profiles/Index?petId={petId}");
+            return this.Redirect($"/Profiles/Index?petId={petId}");
         }
 
         [Authorize]
@@ -90,6 +94,38 @@
             await this.profilesService.UpdateAsync(input.Id, input, user.Id);
 
             return this.Redirect($"/Profiles/Index?petId={input.Id}");
+        }
+
+        [Authorize]
+        public IActionResult AddComment()
+        {
+            return this.Redirect("/");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddComment(string description, int petId)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (description != null)
+            {
+                await this.commentsService.AddCommentAsync(description, petId, userId);
+            }
+
+            return this.Redirect($"/Profiles/Index?petId={petId}");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(int id, int petId)
+        {
+            var userId = this.userManager.GetUserId(this.User);
+            var isDeleted = await this.commentsService.DeleteCommentAsync(id, userId);
+            if (!isDeleted)
+            {
+                return this.Redirect("/Home/Error");
+            }
+
+            return this.Redirect($"/Profiles/Index?petId={petId}");
         }
     }
 }

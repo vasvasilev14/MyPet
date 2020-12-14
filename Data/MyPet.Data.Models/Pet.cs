@@ -13,6 +13,7 @@
         {
             this.Images = new HashSet<Image>();
             this.Likes = new HashSet<Like>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Required]
@@ -22,6 +23,8 @@
 
         [Required]
         public Gender Gender { get; set; }
+
+        public string Description { get; set; }
 
         [Required]
         public string AddedByUserId { get; set; }
@@ -55,8 +58,6 @@
 
         public virtual ICollection<Like> Likes { get; set; }
 
-        public int? ContactId { get; set; }
-
-        public virtual Contact Contact { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

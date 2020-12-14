@@ -33,8 +33,6 @@
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Contact> Contacts { get; set; }
-
         public DbSet<Image> Images { get; set; }
 
         public DbSet<LoveMarket> LoveMarkets { get; set; }

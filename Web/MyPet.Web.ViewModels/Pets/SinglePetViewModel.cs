@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
 
@@ -30,6 +31,10 @@
         public string ImageUrl { get; set; }
 
         public string Email { get; set; }
+
+        public string Description { get; set; }
+
+        public ICollection<PetCommentViewModel> Comments { get; set; }
 
         public ICollection<PetImagesViewModel> Images { get; set; }
 

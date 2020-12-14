@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPet.Data;
 
 namespace MyPet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201213095621_DeletingContacts")]
+    partial class DeletingContacts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -332,10 +334,16 @@ namespace MyPet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("LoveMarketId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SellMarketId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -344,7 +352,11 @@ namespace MyPet.Data.Migrations
 
                     b.HasIndex("IsDeleted");
 
+                    b.HasIndex("LoveMarketId");
+
                     b.HasIndex("PetId");
+
+                    b.HasIndex("SellMarketId");
 
                     b.ToTable("Comments");
                 });
@@ -678,11 +690,19 @@ namespace MyPet.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyPet.Data.Models.Pet", "Pet")
+                    b.HasOne("MyPet.Data.Models.LoveMarket", "LoveMarket")
                         .WithMany("Comments")
+                        .HasForeignKey("LoveMarketId");
+
+                    b.HasOne("MyPet.Data.Models.Pet", "Pet")
+                        .WithMany()
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MyPet.Data.Models.SellMarket", "SellMarket")
+                        .WithMany("Comments")
+                        .HasForeignKey("SellMarketId");
                 });
 
             modelBuilder.Entity("MyPet.Data.Models.Image", b =>

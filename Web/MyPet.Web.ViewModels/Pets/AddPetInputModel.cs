@@ -11,11 +11,11 @@
     using MyPet.Services.Mapping;
 
     public class AddPetInputModel : IMapFrom<Pet>
-
     {
         public int Id { get; set; }
 
         [MinLength(2)]
+        [MaxLength(30)]
         [Required]
         public string Name { get; set; }
 
@@ -29,12 +29,16 @@
         public string Gender { get; set; }
 
         [Required]
+
+        [Display(Name = "Breed")]
         public int BreedId { get; set; }
 
         [Required]
+        [Display(Name = "City")]
         public int CityId { get; set; }
 
         [Required]
+        [Display(Name = "Upload Images")]
         public IEnumerable<IFormFile> Images { get; set; }
 
         public IEnumerable<KeyValuePair<string, string>> Breeds { get; set; }

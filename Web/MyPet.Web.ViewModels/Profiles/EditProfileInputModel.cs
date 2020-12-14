@@ -15,8 +15,13 @@
         public int Id { get; set; }
 
         [MinLength(2)]
+        [MaxLength(30)]
         public string Name { get; set; }
 
+        [Display(Name = "Upload Images")]
         public IEnumerable<IFormFile> Images { get; set; }
+
+        [MaxLength(100)]
+        public string Description { get; set; }
     }
 }
