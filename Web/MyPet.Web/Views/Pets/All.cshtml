@@ -23,9 +23,16 @@
                 @if (pet.Age == 0)
                 {
                     var months = (int)(DateTime.Today - pet.DateOfBirth).Days / 12;
-<li style="list-style-type:none;">
-    <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
-</li> }
+            <li style="list-style-type:none;">
+                @if (months == 0)
+                {
+            <i class="fas fa-birthday-cake"></i><span class="card-text "> I am still a baby.</span> }
+                                else
+                                {
+                                    <i class="fas fa-birthday-cake"></i><span class="card-text "> @months months old.</span>
+                                }
+
+            </li> }
 else
 {
 

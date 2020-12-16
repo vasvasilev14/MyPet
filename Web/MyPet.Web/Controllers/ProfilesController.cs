@@ -54,7 +54,7 @@
         public async Task<IActionResult> Delete(string id, int petId)
         {
             var userId = this.userManager.GetUserId(this.User);
-            var isDeleted = await this.profilesService.DeleteAsync(id, userId);
+            var isDeleted = await this.profilesService.DeleteAsyncPhoto(id, userId);
             if (!isDeleted)
             {
                 return this.Redirect("/Home/Error");

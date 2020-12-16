@@ -29,7 +29,7 @@
             this.imagesRepository = imagesRepository;
         }
 
-        public async Task<bool> DeleteAsync(string id, string userId)
+        public async Task<bool> DeleteAsyncPhoto(string id, string userId)
         {
             var image = this.imagesRepository.All().FirstOrDefault(x => x.Id == id);
 
