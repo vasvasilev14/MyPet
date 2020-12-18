@@ -17,10 +17,20 @@
         {
             var list = new List<City>();
             var mockRepo = new Mock<IDeletableEntityRepository<City>>();
-            mockRepo.Setup(x => x.All()).Returns(list.AsQueryable());
+            mockRepo.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
             mockRepo.Setup(x => x.AddAsync(It.IsAny<City>()));
             var service = new CitiesService(mockRepo.Object);
-            service.GetAllAsKeyValuePairs();
+            var city = new City
+            {
+                Id = 1,
+                Name = "Sofia",
+            };
+            list.Add(city);
+            var expected = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("1", "Sofia"),
+            };
+            Assert.Equal(expected, service.GetAllAsKeyValuePairs());
         }
     }
 }

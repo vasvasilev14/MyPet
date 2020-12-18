@@ -47,9 +47,7 @@
             var list = new List<Pet>();
             var mockRepo = new Mock<IDeletableEntityRepository<Pet>>();
             mockRepo.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepo.Setup(x => x.AddAsync(It.IsAny<Pet>()))
-                    .Callback(
-                    (Pet pet) => list.Add(pet));
+            mockRepo.Setup(x => x.AddAsync(It.IsAny<Pet>()));
             mockRepo.Setup(x => x.Delete(It.IsAny<Pet>()))
                   .Callback(
                   (Pet pet) => list.Remove(pet));
@@ -78,9 +76,7 @@
             var list = new List<Pet>();
             var mockRepo = new Mock<IDeletableEntityRepository<Pet>>();
             mockRepo.Setup(x => x.All()).Returns(list.AsQueryable());
-            mockRepo.Setup(x => x.Delete(It.IsAny<Pet>()))
-                  .Callback(
-                  (Pet pet) => list.Remove(pet));
+            mockRepo.Setup(x => x.Delete(It.IsAny<Pet>()));
             var service = new PetsService(mockRepo.Object);
 
             var pet = new Pet
@@ -98,11 +94,11 @@
         }
 
         [Fact]
-        public async Task MethodShoudRetunAllPets()
+        public async Task MethodShoudReturnAllPets()
          {
             var list = new List<Pet>();
             var mockRepo = new Mock<IDeletableEntityRepository<Pet>>();
-            mockRepo.Setup(x => x.All()).Returns(list.AsQueryable());
+            mockRepo.Setup(x => x.AllAsNoTracking()).Returns(list.AsQueryable());
 
             var service = new PetsService(mockRepo.Object);
             var viewModel = new PetsInListViewModel
@@ -113,10 +109,18 @@
                 DateOfBirth = new DateTime(2008, 3, 1, 7, 0, 0),
                 Id = 1,
                 Name = "PeshoCat",
-                TotalLikes = 0,
-                ImageUrl = "vasko.com",
             };
-           // service.GetAll<PetsInListViewModel>(1);
+            var pet = new Pet
+            {
+                AddedByUserId = "PeshoId",
+                BreedId = 1,
+                CityId = 1,
+                DateOfBirth = new DateTime(2008, 3, 1, 7, 0, 0),
+                Id = 1,
+                Name = "PeshoCat",
+            };
+            list.Add(pet);
+           service.GetAll<PetsInListViewModel>(1);
 
         }
 }
