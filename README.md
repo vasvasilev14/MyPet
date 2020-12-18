@@ -36,7 +36,7 @@ Cloudinary API
 StyleCop Analyzers
 
 
-Data base :
+Database :
 
 ![alt text](https://res.cloudinary.com/vasvasilev14/image/upload/v1608294589/j9iz37cfuwl2cxeu4blb.png)
 
