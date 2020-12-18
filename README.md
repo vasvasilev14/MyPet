@@ -32,3 +32,7 @@ Theme - Lazy Kit
 
 Cloudinary API
 
+StyleCop Analyzers
+
+
+
