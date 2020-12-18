@@ -2,6 +2,7 @@
  ASP.NET Core application for the course C# Web - ASP.NET Core October 2020 @SoftUni
  https://mypets.azurewebsites.net/
  
+ This is a platform where you can share your pets with other pet's lovers.You can like or comment other pets.
  
  Technologies Used
 This website is designed and runs using the main technologies below:
